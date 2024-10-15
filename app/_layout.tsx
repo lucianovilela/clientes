@@ -6,7 +6,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 import { StateProvider } from '../components/StateProvider';
-
+import { Provider as PaperProvider, DefaultTheme as PaperDefaultTheme } from 'react-native-paper';
 
 import { useColorScheme } from '@/components/useColorScheme';
 
@@ -47,18 +47,34 @@ export default function RootLayout() {
   return <RootLayoutNav />;
 }
 
+
+const blueTheme = {
+  ...PaperDefaultTheme,
+  fonts: {
+    ...PaperDefaultTheme.fonts,
+  },
+  colors: {
+    ...PaperDefaultTheme.colors,
+    primary: '#5a5afa', // Sets the primary color
+    accent: '#fafafa', // Sets the accent color
+    text: 'darkgray',
+  },
+};
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>,
-      <StateProvider>
+    <PaperProvider theme={blueTheme}>
 
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-        </Stack>
-      </StateProvider>
-    </ThemeProvider>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>,
+        <StateProvider>
+
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+          </Stack>
+        </StateProvider>
+      </ThemeProvider>
+    </PaperProvider>
   );
 }

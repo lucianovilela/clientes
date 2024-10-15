@@ -14,7 +14,7 @@ import {
 
 import React from 'react';
 import firebase from 'firebase/compat/app';
-import 'firebase/compat/firestore';
+import 'firebase/compat/database';
 import moment from 'moment';
 const ListObservacao = ({ list, user }) => {
   return (
